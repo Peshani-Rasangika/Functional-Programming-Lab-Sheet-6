@@ -1,8 +1,4 @@
-import scala.io.StdIn
-
-object StudentRecordManager {
-
-  def getStudentInfo: (String, Int, Int, Double, Char) = {
+def getStudentInfo: (String, Int, Int, Double, Char) = {
     val (name, marks, totalMarks) = getStudentInfoWithRetry
 
     val percentage = (marks.toDouble / totalMarks) * 100
@@ -14,18 +10,18 @@ object StudentRecordManager {
     }
 
     (name, marks, totalMarks, percentage, grade)
-  }
+}
 
-  def printStudentRecord(record: (String, Int, Int, Double, Char)): Unit = {
+def printStudentRecord(record: (String, Int, Int, Double, Char)): Unit = {
     val (name, marks, totalMarks, percentage, grade) = record
     println(s"Student Name: $name")
     println(s"Marks Obtained: $marks")
     println(s"Total Possible Marks: $totalMarks")
     println(s"Percentage: $percentage")
     println(s"Grade: $grade")
-  }
+}
 
-  def validateInput(name: String, marks: Int, totalMarks: Int): (Boolean, Option[String]) = {
+def validateInput(name: String, marks: Int, totalMarks: Int): (Boolean, Option[String]) = {
     if (name.isEmpty) {
       (false, Some("Name cannot be empty."))
     } else if (marks < 0 || marks > totalMarks) {
@@ -35,9 +31,9 @@ object StudentRecordManager {
     } else {
       (true, None)
     }
-  }
+}
 
-  def getStudentInfoWithRetry: (String, Int, Int) = {
+def getStudentInfoWithRetry: (String, Int, Int) = {
     var valid = false
     var name = ""
     var marks = 0
@@ -45,13 +41,13 @@ object StudentRecordManager {
 
     while (!valid) {
       println("Enter student name: ")
-      name = StdIn.readLine()
+      name = scala.io.StdIn.readLine()
 
       println("Enter marks obtained: ")
-      marks = StdIn.readInt()
+      marks = scala.io.StdIn.readInt()
 
       println("Enter total possible marks: ")
-      totalMarks = StdIn.readInt()
+      totalMarks = scala.io.StdIn.readInt()
 
       val (isValid, errorMessage) = validateInput(name, marks, totalMarks)
       if (isValid) {
@@ -62,10 +58,9 @@ object StudentRecordManager {
     }
 
     (name, marks, totalMarks)
-  }
+}
 
-  def main(args: Array[String]): Unit = {
+def main(args: Array[String]): Unit = {
     val studentInfo = getStudentInfo
     printStudentRecord(studentInfo)
-  }
 }
